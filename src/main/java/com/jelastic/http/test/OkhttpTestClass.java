@@ -14,7 +14,6 @@ public class OkhttpTestClass {
                 .url("https://qredab.eu.auth0.com")
                 .method("POST", body)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                .addHeader("Cookie", "docsSession=7df032ed5b812b334dd906fd473d5e53d3dc801cbd25aa54ac8350fe917deccac6eda73ebd277021923a44c42585c68e7b3b393a98260cbd53ecba17162492d898f75895c649fc5651cdb6874782da75781c13d35b5f6dc8c5670c796a29c6791134ef5019922398ab119c1982a26223%24358a896a453073ce092303ba753030bc%2418ad94744b19cf4ff015e69763355a5f")
                 .build();
         Response response = null;
         try {
