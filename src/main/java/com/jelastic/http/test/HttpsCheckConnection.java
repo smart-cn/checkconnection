@@ -10,11 +10,13 @@ import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Map;
+
 public class HttpsCheckConnection {
     // default user agent to send requests with
     private final static String USER_AGENT = "Mozilla/5.0";
     // File to save response to
     private final static String RESPONSE_FILE_LOCATION = "file.html";
+
     static {
         // this part is needed cause Lebocoin has invalid SSL certificate, that cannot be normally processed by Java
         TrustManager[] trustAllCertificates = new TrustManager[]{
@@ -23,10 +25,12 @@ public class HttpsCheckConnection {
                     public X509Certificate[] getAcceptedIssuers() {
                         return null; // Not relevant.
                     }
+
                     @Override
                     public void checkClientTrusted(X509Certificate[] certs, String authType) {
                         // Do nothing. Just allow them all.
                     }
+
                     @Override
                     public void checkServerTrusted(X509Certificate[] certs, String authType) {
                         // Do nothing. Just allow them all.
@@ -49,12 +53,12 @@ public class HttpsCheckConnection {
             throw new ExceptionInInitializerError(e);
         }
     }
+
     public static void main(String[] args) throws IOException {
         String url;
-        if (args.length==0) {
+        if (args.length == 0) {
             url = "https://auth0.com";
-        } else
-        {
+        } else {
             url = args[0];
         }
         Map<String, String> parameters = new HashMap<String, String>();
@@ -64,6 +68,7 @@ public class HttpsCheckConnection {
         parameters.put("body", "This is some pretty body message");
         makePostRequest(url, parameters);
     }
+
     /**
      * Make post request for given URL with given parameters and save response into RESPONSE_FILE_LOCATION
      *
@@ -99,6 +104,7 @@ public class HttpsCheckConnection {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * Send POST parameters to given connection
      *
@@ -113,6 +119,7 @@ public class HttpsCheckConnection {
         wr.flush();
         wr.close();
     }
+
     /**
      * Create HttpsURLConnection for given URL with given Cookies
      *
@@ -128,6 +135,7 @@ public class HttpsCheckConnection {
         con.setRequestProperty("Cookie", cookies);
         return con;
     }
+
     private static void ensureAllParametersArePresent(Map<String, String> parameters) {
         if (parameters.get("send") == null) {
             parameters.put("send", "Envoyer votre message");
@@ -136,6 +144,7 @@ public class HttpsCheckConnection {
             parameters.put("phone", "");
         }
     }
+
     /**
      * Convert given Map of parameters to URL-encoded string
      *
@@ -149,6 +158,7 @@ public class HttpsCheckConnection {
         }
         return sb.substring(0, sb.length() - 1);
     }
+
     /**
      * Encode given String with URLEncoder in UTF-8
      *
